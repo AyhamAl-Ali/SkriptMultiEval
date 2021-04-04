@@ -1,0 +1,45 @@
+#! Multi Effect Code Evaluate
+#! Credits: AyhamAlali (SkriptDev)
+
+#! Use $me to get the player parsed as a player type (not surrounded by quotation marks "") - ex. (send "%tool of $player%") this will be parsed as (send "%tool of ""SkriptDev"" parsed as offlineplayer%")
+#! Use $player to get the player parsed as a player type (when surrounded by quotation marks "") - ex. (give 1 stone to $me) this will be parsed as (give 1 stone to "SkriptDev" parsed as player)
+
+#! Use $name to get the player name parsed as text
+#! Use $uuid to get the uuid of player
+
+#! Use $PlayerName$ to get some player parsed as a offlineplayer type (not surrounded by quotation marks "") - ex. (give 1 stone to $SkriptDev$) this will be parsed as (give 1 stone to "SkriptDev" parsed as player)
+#! Use $$PlayerName$ to get some player parsed as a offlineplayer type (surrounded by quotation marks "") - ex. (send "%tool of $$SkriptDev$%") this will be parsed as (send "%tool of ""SkriptDev"" parsed as offlineplayer%")
+
+#! Use " -> " without the quotes to use multi lines (Note the spaces around the -> are important) - ex. (set {_i} to "Test" -> broadcast {_i})
+
+#! Command to use this '/#' without quotes to use the function
+#! Permission required: 'skript.multieval'
+
+#! Requires: Skript, TuSKe
+
+on command:
+	command = "##"
+	sender has permission "skript.multieval"
+	cancel event
+
+	set {_msg} to subtext of full command from 3 to length of full command
+
+	set {_effects::*} to split {_msg} at " -> " # support multi line
+
+	loop {_effects::*}:
+		set {_eff} to "%loop-value%"
+		replace all "$player" with "(''%sender%'' parsed as player)" in {_eff} # in strings ""
+		replace all "$me" with "(""%sender%"" parsed as player)" in {_eff} # not in strings
+		
+		replace all "$name" with "%sender%" in {_eff} # text name
+		replace all "$uuid" with "%uuid of sender%" in {_eff} # uuid
+		
+		set {_eff} to regex replace "\$\$(\w+)\$" with "(''$1'' parsed as offlineplayer)" in {_eff} # $PLAYERNAME$ in string
+		set {_eff} to regex replace "\$(\w+)\$" with "(""$1"" parsed as offlineplayer)" in {_eff} # $PLAYERNAME$
+
+		replace all "''" with """""" in {_eff} # remove '' from repalcers above
+
+		send "&aExecuting '&7&o%{_eff}%&a'" to sender
+		eval logging errors in {_errors::*} with safety: {_eff}
+		if {_errors::*} is set:
+			send "&cError '&o%{_errors::*}%&c'" to sender
