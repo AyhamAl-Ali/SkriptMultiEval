@@ -2,9 +2,9 @@
 This script allow you to use multiple codes to evaluate in-game using `/#` command
 
 ## Why?
-Skript has a built-in evaluate effect but it only evaluate one line code at a time, this script allows you to do multiple `single line` effect at a time.
+Skript has a built-in evaluate effect but it only evaluates one line code at a time, this script allows you to do multiple `single line` effects at a time.
 
-What is `multiple single line effect`? this script can't do loops and indentions, but it can do this `/# set {_i} ti "Test" -> broadcast {_i}`
+What is `multiple single line effect`? this script can't do loops or indentations, but it can do this `/# set {_i} ti "Test" -> broadcast {_i}`
 
 ## Docs
 ```
@@ -35,3 +35,5 @@ What is `multiple single line effect`? this script can't do loops and indentions
 `/# send "%name of $player's tool%"` - Name of sender's tool
 
 `/# send "%$$SkriptDev$'s tool%"` - Send tool of a player named "SkriptDev"
+
+`/# set $me's tool to stone -> broadcast "%$player's tool%"` - Set sender's tool to stone then broadcast it
