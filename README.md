@@ -8,8 +8,8 @@ What is `multiple single line effect`? this script can't do loops or indentation
 
 ## Docs
 ```
-#! Use $me to get the player parsed as a player type (not surrounded by quotation marks "") - ex. (send "%tool of $player%") this will be parsed as (send "%tool of ""SkriptDev"" parsed as offlineplayer%")
-#! Use $player to get the player parsed as a player type (when surrounded by quotation marks "") - ex. (give 1 stone to $me) this will be parsed as (give 1 stone to "SkriptDev" parsed as player)
+#! Use $me to get the player parsed as a player type (not surrounded by quotation marks "") - ex. (give 1 stone to $me) this will be parsed as (give 1 stone to "SkriptDev" parsed as player)
+#! Use $player to get the player parsed as a player type (when surrounded by quotation marks "") - ex. (send "%tool of $player%") this will be parsed as (send "%tool of ""SkriptDev"" parsed as offlineplayer%")
 
 #! Use $name to get the player name parsed as text
 #! Use $uuid to get the uuid of player
